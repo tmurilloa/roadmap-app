@@ -1,4 +1,3 @@
-
 // Importa las dependencias necesarias
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
