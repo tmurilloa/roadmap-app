@@ -12,7 +12,25 @@ const getAllRoadmapItems = async (req, res) => {
     }
 }
 
+// Para obterner un item del Roadmap por su id
+const getRoadmapItem = async(req, res) => {
+    const idRoadmapItem = req.params.id
+
+    try{
+        const RoadmapItemRequested = await RoadmapItem.findById(idRoadmapItem)
+        // Se hace el chequeo de que si exista en la BD el id
+        if (RoadmapItemRequested === null) {
+            return res.status(404).json({message: 'Item no encontrado'})
+        } 
+        return res.json(RoadmapItemRequested)
+    }
+    catch (err){
+        res.status(500).json({message: err.message}) //Error 500 porque puede haber una mezcla de posibles errores, por convencion se pone error interno del servidor
+    }
+}
+
 // Para crear un nuevo item del Roadmap
+// los subitems se agregan mediante update, no en la creacion, para mantener la V1 simple.
 const createRoadmapItem = async (req, res) => {
     const { title, description, status, date } = req.body
     const newroadmapItem = new RoadmapItem(
@@ -67,8 +85,9 @@ const deleteRoadmapItem = async (req, res) =>{
 }
 
 module.exports = { 
-    getAllRoadmapItems, 
+    getAllRoadmapItems,
+    getRoadmapItem, 
     createRoadmapItem, 
     updateRoadmapItem, 
-    deleteRoadmapItem 
+    deleteRoadmapItem
 }

@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const express = require('express')
 const cors = require('cors')
+const router = require('./routes/roadmapItems')
 
 //Configura dotenv para cargar las variables de entorno desde el archivo .env
 dotenv.config() 
@@ -19,6 +20,8 @@ mongoose.connect(process.env.MONGODB_URI).
     }).catch(error => {
     console.error('Error al conectar a MongoDB:', error)
     })
+
+app.use('/api/items', router)
 
 // Crea el servidor y escucha en el puerto especificado
 const PORT = process.env.PORT || 3001
