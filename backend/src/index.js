@@ -21,7 +21,7 @@ mongoose.connect(process.env.MONGODB_URI).
     console.error('Error al conectar a MongoDB:', error)
     })
 
-app.use('/api/items', router)
+app.use('/api/roadmapitems', router)
 
 // Crea el servidor y escucha en el puerto especificado
 const PORT = process.env.PORT || 3001
